@@ -26,14 +26,21 @@ public class ConcurrentSkipListSetDemo {
         set2.add("orange");
         set2.add("apple");
         System.out.println(set2);
+        
+        Set<String> set3 = new ConcurrentSkipListSet<String>();
+        set3.add("Apple");
+        set3.add("Apple");
+        set3.add("Apple");
+        set3.add("Orange");
+        System.out.println(set3);
     }
     
-    private static void printAll() {
+    private static void printAll(int i) {
         String value = null;
         Iterator iter = set.iterator();
         while (iter.hasNext()) {
             value = (String) iter.next();
-            System.out.print(value + ", ");
+            System.out.print(Thread.currentThread().getName() + "-" + i + "--" + value + ", ");
         }
         System.out.println();
     }
@@ -49,7 +56,7 @@ public class ConcurrentSkipListSetDemo {
             for (int i = 1; i < 10; i++) {
                 String value = Thread.currentThread().getName() + (i % 5);
                 set.add(value);
-                printAll();
+                printAll(i);
             }
         }
         
